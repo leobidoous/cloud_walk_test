@@ -11,26 +11,29 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
 
+  easy_localization: ^3.0.4
   core:
     git:
       url: https://github.com/leobidoous/core.git
-      # tag: 1.0.0
       branch: main
 
   cupertino_icons: ^1.0.6
   flutter_modular: ^6.3.2
-  flutter_bloc: ^8.1.4
+  dio_cache_interceptor: ^3.5.0
+  dio_cache_interceptor_hive_store: ^3.2.2
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
   flutter_lints: ^3.0.0
-  bloc_test: ^9.1.6
+  mockito: ^5.4.4
 
 flutter:
   uses-material-design: true
 
   assets:
     - .environment/
+    - translations/
