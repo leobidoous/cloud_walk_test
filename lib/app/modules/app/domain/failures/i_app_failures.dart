@@ -1,14 +1,13 @@
-
-import 'custom_failures.dart';
+import 'package:core/core.dart';
 
 abstract class IAppFailure extends ICustomFailure {
-  IAppFailure(super.message);
+  IAppFailure({super.message});
 }
 
 class AppServerError extends IAppFailure {
-  AppServerError(super.message);
+  AppServerError({super.message});
 }
 
 class AppUnknownError extends IAppFailure {
-  AppUnknownError(super.message);
+  AppUnknownError({super.message});
 }

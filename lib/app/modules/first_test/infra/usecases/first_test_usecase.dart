@@ -9,7 +9,7 @@ class FirstTestUsecase implements IFirstTestUsecase {
   FirstTestUsecase({required this.repository});
 
   final IFirstTestRepository repository;
-  
+
   @override
   Future<Either<ICustomFailure, List<CityEntity>>> fetchCities({
     required String term,
@@ -18,9 +18,23 @@ class FirstTestUsecase implements IFirstTestUsecase {
   }
 
   @override
-  Future<Either<ICustomFailure, List<WeatherEntity>>> fetchWeather({
+  Future<Either<ICustomFailure, List<WeatherEntity>>> fetchWeatherForecast({
     int nNextDays = 5,
+    required double lat,
+    required double lon,
   }) {
-    return repository.fetchWeather(nNextDays: nNextDays);
+    return repository.fetchWeatherForecast(
+      nNextDays: nNextDays,
+      lat: lat,
+      lon: lon,
+    );
+  }
+
+  @override
+  Future<Either<ICustomFailure, WeatherEntity>> getWeatherCurrent({
+    required double lat,
+    required double lon,
+  }) {
+    return repository.getWeatherCurrent(lat: lat, lon: lon);
   }
 }

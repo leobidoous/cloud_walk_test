@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 import '../../core/utils/navigator_manager.dart';
@@ -49,20 +48,6 @@ class _HomePageState extends State<HomePage> {
                         Nav.to.pushNamed(AppRoutes.firstTest);
                       },
                       child: const Text('Teste de engenheiro móvel nº 1'),
-                    ),
-                    const SizedBox(height: 24),
-                    ElevatedButton(
-                      onPressed: () {
-                        Nav.to.pushNamed(AppRoutes.firstTest);
-                      },
-                      child: const Text('Teste de engenheiro móvel nº 2'),
-                    ),
-                    const SizedBox(height: 24),
-                    ElevatedButton(
-                      onPressed: () {
-                        Nav.to.pushNamed(AppRoutes.firstTest);
-                      },
-                      child: const Text('Teste de engenheiro móvel nº 3'),
                     ),
                   ],
                 ),

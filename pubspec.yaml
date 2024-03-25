@@ -15,7 +15,8 @@ dependencies:
   core:
     git:
       url: https://github.com/leobidoous/core.git
-      tag: 1.0.0
+      # tag: 1.0.0
+      branch: main
 
   cupertino_icons: ^1.0.6
   flutter_modular: ^6.3.2

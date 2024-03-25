@@ -1,10 +1,11 @@
-import 'package:core/core.dart' show Either;
-import 'package:core/src/domain/failures/i_custom_failure.dart';
+import 'package:core/core.dart';
 
+import '../../../app/domain/failures/i_app_failures.dart';
 import '../../domain/entities/city_entity.dart';
 import '../../domain/entities/weather_entity.dart';
 import '../../domain/repositories/i_first_test_repository.dart';
 import '../datasources/i_first_test_datasource.dart';
+import '../models/weather_model.dart';
 
 class FirstTestRepository implements IFirstTestRepository {
   FirstTestRepository({required this.datasource});
@@ -15,15 +16,56 @@ class FirstTestRepository implements IFirstTestRepository {
   Future<Either<ICustomFailure, List<CityEntity>>> fetchCities({
     required String term,
   }) {
-    // TODO: implement fetchCities
-    throw UnimplementedError();
+    return datasource.fetchCities(term: term).then((value) {
+      return value.fold(
+        (l) => Left(AppServerError(message: l.data)),
+        (r) => Right(r.data),
+      );
+    });
   }
 
   @override
-  Future<Either<ICustomFailure, List<WeatherEntity>>> fetchWeather({
+  Future<Either<ICustomFailure, List<WeatherEntity>>> fetchWeatherForecast({
     required int nNextDays,
+    required double lat,
+    required double lon,
   }) {
-    // TODO: implement fetchWeather
-    throw UnimplementedError();
+    return datasource
+        .fetchWeatherForecast(nNextDays: nNextDays, lat: lat, lon: lon)
+        .then((value) {
+      return value.fold(
+        (l) => Left(AppServerError(message: l.data['message'])),
+        (r) {
+          try {
+            return Right(
+              (r.data['list'] as List)
+                  .map((e) => WeatherModel.fromMap(e))
+                  .toList(),
+            );
+          } catch (e) {
+            return Left(AppUnknownError(message: '$e'));
+          }
+        },
+      );
+    });
+  }
+
+  @override
+  Future<Either<ICustomFailure, WeatherEntity>> getWeatherCurrent({
+    required double lat,
+    required double lon,
+  }) {
+    return datasource.getWeatherCurrent(lat: lat, lon: lon).then((value) {
+      return value.fold(
+        (l) => Left(AppServerError(message: l.data['message'])),
+        (r) {
+          try {
+            return Right(WeatherModel.fromMap(r.data));
+          } catch (e) {
+            return Left(AppUnknownError(message: '$e'));
+          }
+        },
+      );
+    });
   }
 }

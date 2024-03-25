@@ -5,13 +5,14 @@ import 'package:core/core.dart';
 import '../../domain/entities/city_entity.dart';
 import '../../domain/usecases/i_first_test_usecase.dart';
 
-class CitiesController extends CustomController<Exception, List<CityEntity>> {
+class CitiesController
+    extends CustomController<ICustomFailure, List<CityEntity>> {
   CitiesController({required this.usecase}) : super(const []);
 
   Timer? _debounce;
   final IFirstTestUsecase usecase;
 
-  Future<void> fetchSponsors([String term = '']) async {
+  Future<void> fetchCities([String term = '']) async {
     await execute(() => usecase.fetchCities(term: term));
   }
 
